@@ -14,10 +14,10 @@ class User < ApplicationRecord
   # 一覧画面で使う
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
-  
+
   has_many :user_rooms, dependent: :destroy
   has_many :chats, dependent: :destroy
-  
+
   has_many :view_count, dependent: :destroy
 
 
@@ -39,18 +39,16 @@ class User < ApplicationRecord
   def following?(user)
    followings.include?(user)
   end
-  
-  def self.looks(search, word)
-    if search == "perfect_match"
-      @user = User.where("name LIKE?", "#{word}")
-    elsif search == "forward_match"
-      @user = User.where("name LIKE?","#{word}%")
-    elsif search == "backward_match"
-      @user = User.where("name LIKE?","%#{word}")
-    elsif search == "partial_match"
-      @user = User.where("name LIKE?","%#{word}%")
+
+  def self.search_for(content, method)
+    if method == 'perfect'
+      User.where(name: content)
+    elsif method == 'forward'
+      User.where('name LIKE ?', content + '%')
+    elsif method == 'backward'
+      User.where('name LIKE ?', '%' + content)
     else
-      @user = User.all
+      User.where('name LIKE ?', '%' + content + '%')
     end
   end
 end

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: "homes#top"
   get "home/about" => "homes#about"
 
-  get "search" => "searches#search"
+  get '/search', to: 'searches#search'
 
 
   resources :chats, only: [:show,:create]
