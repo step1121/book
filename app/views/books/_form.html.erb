@@ -7,6 +7,25 @@
     <%= f.label :opinion %>
     <%= f.text_area :body, class: 'form-control book_body' %>
   </div>
+
+    <div class="form-group row" id="star">
+    <%= f.label :rate,'Rate ', class:'col-md-3 col-form-label' %>
+    <%= f.hidden_field :rate, id: :review_star %>
+  </div>
+
+  <!-- 評価javascript -->
+  <script>
+  $('#star').raty({
+    size     : 15,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    starHalf : '<%= asset_path('star-half.png') %>',
+    scoreName: 'book[rate]',
+    half: true,
+  });
+  </script>
+
+
   <div class="form-group">
     <%= f.submit class: 'btn btn-success' %>
   </div>

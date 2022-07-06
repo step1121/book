@@ -28,6 +28,9 @@
             <td class=<%= "favorite-" + @book.id.to_s %> >
             <%= render "favorites/btn", book: @book %>
             </td>
+            <td>
+              <%= render"star", book: @book %>
+            </td>
             <td class="view-count">閲覧数: <%= @book.view_count.count %></td>
             <% if @book.user == current_user %>
             <td>
